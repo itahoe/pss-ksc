@@ -138,15 +138,16 @@
   - This is the minimum acceptable value for the acquisition measure.
   - The acquisition will be in error if the measure is below this value.
 */
-#define TSLPRM_ACQ_MIN (10)
 //#define TSLPRM_ACQ_MIN (100)
+//#define TSLPRM_ACQ_MIN                  (10)
+#define TSLPRM_ACQ_MIN                  (8)
 
 /** Maximum acquisition measurement (range=255, 511, 1023, 2047, 8191, 16383)
   - This is the maximum acceptable value for the acquisition measure.
   - The acquisition will be in error if the measure is above this value.
 */
-#define TSLPRM_ACQ_MAX (8191)
-//#define TSLPRM_ACQ_MAX (16383)
+//#define TSLPRM_ACQ_MAX (8191)
+#define TSLPRM_ACQ_MAX (16383)
 //#define TSLPRM_ACQ_MAX (2047)
 
 /** @} Common_Parameters_Acquisition_Limits */
@@ -162,15 +163,15 @@
   - Low value = faster calibration but less precision.
   - High value = slower calibration but more precision.
 */
-//#define TSLPRM_CALIB_SAMPLES (4)
-#define TSLPRM_CALIB_SAMPLES (16)
+#define TSLPRM_CALIB_SAMPLES            (4)
+//#define TSLPRM_CALIB_SAMPLES            (16)
 
 /** Delay in measurement samples before starting the calibration (range=0..40)
   - This is useful if a noise filter is used.
   - Write 0 to disable the delay.
 */
-//#define TSLPRM_CALIB_DELAY      (0)
-#define TSLPRM_CALIB_DELAY      (10)
+#define TSLPRM_CALIB_DELAY      (0)
+//#define TSLPRM_CALIB_DELAY              (10)
 
 /** @} Common_Parameters_Calibration */
 
@@ -185,13 +186,13 @@
   - Enter Proximity state if delta is above
 */
 //#define TSLPRM_TKEY_PROX_IN_TH          (10)
-#define TSLPRM_TKEY_PROX_IN_TH          (5)
+#define TSLPRM_TKEY_PROX_IN_TH          (6)
 
 /** TouchKeys Proximity state output threshold (range=0..255)
   - Exit Proximity state if delta is below
 */
 //#define TSLPRM_TKEY_PROX_OUT_TH (5)
-#define TSLPRM_TKEY_PROX_OUT_TH         (4)
+#define TSLPRM_TKEY_PROX_OUT_TH         (5)
 
 /** TouchKeys Detect state input threshold (range=0..255)
   - Enter Detect state if delta is above
@@ -203,15 +204,16 @@
   - Exit Detect state if delta is below
 */
 //#define TSLPRM_TKEY_DETECT_OUT_TH (110)
-#define TSLPRM_TKEY_DETECT_OUT_TH       (6)
+#define TSLPRM_TKEY_DETECT_OUT_TH       (7)
 
 /** TouchKeys re-Calibration threshold (range=0..255)
   - @warning The value is inverted in the sensor state machine
   - Enter Calibration state if delta is below
 */
 //#define TSLPRM_TKEY_CALIB_TH (120)
-#define TSLPRM_TKEY_CALIB_TH (50)
-//#define TSLPRM_TKEY_CALIB_TH            (10)
+#define TSLPRM_TKEY_CALIB_TH            (50)
+//#define TSLPRM_TKEY_CALIB_TH            (250)
+//#define TSLPRM_TKEY_CALIB_TH            (6)
 
 /** TouchKey, Linear and Rotary sensors thresholds coefficient (range=0..4)
     This multiplier coefficient is applied on Detect and Re-Calibration thresholds only.
@@ -221,8 +223,7 @@
   - 3: thresholds x 8
   - 4: thresholds x 16
 */
-#define TSLPRM_COEFF_TH (0)
-//#define TSLPRM_COEFF_TH (3)
+#define TSLPRM_COEFF_TH                 (0)
 
 /** @} Common_Parameters_TouchKey_Thresholds */
 
@@ -278,33 +279,37 @@
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
 //#define TSLPRM_DEBOUNCE_PROX (31)
-#define TSLPRM_DEBOUNCE_PROX            (2)
+#define TSLPRM_DEBOUNCE_PROX            (20)
 
 /** Detect state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the detection but with less noise filtering.
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
 //#define TSLPRM_DEBOUNCE_DETECT (31)
-#define TSLPRM_DEBOUNCE_DETECT          (5)
+#define TSLPRM_DEBOUNCE_DETECT          (20)
+//#define TSLPRM_DEBOUNCE_DETECT          (4)
 
 /** Release state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the end-detection but with less noise filtering.
   - A High value will result in a lower sensitivity during the end-detection but with more noise filtering.
 */
 //#define TSLPRM_DEBOUNCE_RELEASE (31)
-#define TSLPRM_DEBOUNCE_RELEASE         (5)
+#define TSLPRM_DEBOUNCE_RELEASE         (20)
+//#define TSLPRM_DEBOUNCE_RELEASE         (4)
 
 /** Re-calibration state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the recalibration but with less noise filtering.
   - A High value will result in a lower sensitivity during the recalibration but with more noise filtering.
 */
-#define TSLPRM_DEBOUNCE_CALIB           (10)
+#define TSLPRM_DEBOUNCE_CALIB           (32)
+//#define TSLPRM_DEBOUNCE_CALIB           (10)
 
 /** Error state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity to enter in error state.
   - A High value will result in a lower sensitivity to enter in error state.
 */
-#define TSLPRM_DEBOUNCE_ERROR           (10)
+#define TSLPRM_DEBOUNCE_ERROR           (32)
+//#define TSLPRM_DEBOUNCE_ERROR           (10)
 
 /** @} Common_Parameters_Debounce */
 
