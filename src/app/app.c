@@ -95,16 +95,14 @@ void Process_Sensors(tsl_user_status_t status)
         APP_TRACE( "\n" );
 */
 
-        mask    |=      MyTKeysB[0].p_Data->StateId == TSL_STATEID_DETECT ? 0x01 : 0;
-        mask    |=      MyTKeysB[1].p_Data->StateId == TSL_STATEID_DETECT ? 0x02 : 0;
-        mask    |=      MyTKeysB[2].p_Data->StateId == TSL_STATEID_DETECT ? 0x04 : 0;
-        mask    |=      MyTKeysB[3].p_Data->StateId == TSL_STATEID_DETECT ? 0x08 : 0;
-        mask    |=      MyTKeysB[4].p_Data->StateId == TSL_STATEID_DETECT ? 0x10 : 0;
-        mask    |=      MyTKeysB[5].p_Data->StateId == TSL_STATEID_DETECT ? 0x20 : 0;
-        mask    |=      MyTKeysB[6].p_Data->StateId == TSL_STATEID_DETECT ? 0x40 : 0;
-        mask    |=      MyTKeysB[7].p_Data->StateId == TSL_STATEID_DETECT ? 0x80 : 0;
-
-        //APP_TRACE( "%02X\n", mask );
+        mask    |=   MyTKeysB[0].p_Data->StateId == TSL_STATEID_DETECT ? 0x01 : 0;
+        mask    |=   MyTKeysB[1].p_Data->StateId == TSL_STATEID_DETECT ? 0x02 : 0;
+        mask    |=   MyTKeysB[2].p_Data->StateId == TSL_STATEID_DETECT ? 0x04 : 0;
+        mask    |=   MyTKeysB[3].p_Data->StateId == TSL_STATEID_DETECT ? 0x08 : 0;
+        mask    |=   MyTKeysB[4].p_Data->StateId == TSL_STATEID_DETECT ? 0x10 : 0;
+        mask    |=   MyTKeysB[5].p_Data->StateId == TSL_STATEID_DETECT ? 0x20 : 0;
+        mask    |=   MyTKeysB[6].p_Data->StateId == TSL_STATEID_DETECT ? 0x40 : 0;
+        mask    |=   MyTKeysB[7].p_Data->StateId == TSL_STATEID_DETECT ? 0x80 : 0;
 
         ui_led_sts_set( ~mask );
 
