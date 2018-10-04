@@ -139,6 +139,7 @@
   - The acquisition will be in error if the measure is below this value.
 */
 #define TSLPRM_ACQ_MIN (10)
+//#define TSLPRM_ACQ_MIN (100)
 
 /** Maximum acquisition measurement (range=255, 511, 1023, 2047, 8191, 16383)
   - This is the maximum acceptable value for the acquisition measure.
@@ -168,9 +169,8 @@
   - This is useful if a noise filter is used.
   - Write 0 to disable the delay.
 */
-//#define TSLPRM_CALIB_DELAY (0)
-//#define TSLPRM_CALIB_DELAY (10)
-#define TSLPRM_CALIB_DELAY (2)
+//#define TSLPRM_CALIB_DELAY      (0)
+#define TSLPRM_CALIB_DELAY      (10)
 
 /** @} Common_Parameters_Calibration */
 
@@ -184,32 +184,34 @@
 /** TouchKeys Proximity state input threshold (range=0..255)
   - Enter Proximity state if delta is above
 */
-//#define TSLPRM_TKEY_PROX_IN_TH (10)
-#define TSLPRM_TKEY_PROX_IN_TH (4)
+//#define TSLPRM_TKEY_PROX_IN_TH          (10)
+#define TSLPRM_TKEY_PROX_IN_TH          (5)
 
 /** TouchKeys Proximity state output threshold (range=0..255)
   - Exit Proximity state if delta is below
 */
-#define TSLPRM_TKEY_PROX_OUT_TH (3)
+//#define TSLPRM_TKEY_PROX_OUT_TH (5)
+#define TSLPRM_TKEY_PROX_OUT_TH         (4)
 
 /** TouchKeys Detect state input threshold (range=0..255)
   - Enter Detect state if delta is above
 */
 //#define TSLPRM_TKEY_DETECT_IN_TH (120)
-#define TSLPRM_TKEY_DETECT_IN_TH (6)
+#define TSLPRM_TKEY_DETECT_IN_TH        (8)
 
 /** TouchKeys Detect state output threshold (range=0..255)
   - Exit Detect state if delta is below
 */
 //#define TSLPRM_TKEY_DETECT_OUT_TH (110)
-#define TSLPRM_TKEY_DETECT_OUT_TH (5)
+#define TSLPRM_TKEY_DETECT_OUT_TH       (6)
 
 /** TouchKeys re-Calibration threshold (range=0..255)
   - @warning The value is inverted in the sensor state machine
   - Enter Calibration state if delta is below
 */
 //#define TSLPRM_TKEY_CALIB_TH (120)
-#define TSLPRM_TKEY_CALIB_TH (240)
+#define TSLPRM_TKEY_CALIB_TH (50)
+//#define TSLPRM_TKEY_CALIB_TH            (10)
 
 /** TouchKey, Linear and Rotary sensors thresholds coefficient (range=0..4)
     This multiplier coefficient is applied on Detect and Re-Calibration thresholds only.
@@ -220,7 +222,7 @@
   - 4: thresholds x 16
 */
 #define TSLPRM_COEFF_TH (0)
-
+//#define TSLPRM_COEFF_TH (3)
 
 /** @} Common_Parameters_TouchKey_Thresholds */
 
@@ -233,7 +235,6 @@
 #define TSLPRM_LINROT_DETECT_OUT_TH (75)
 #define TSLPRM_LINROT_CALIB_TH (80)
 #define TSLPRM_LINROT_USE_NORMDELTA (0)
-
 /*============================================================================*/
 /* Linear/Rotary sensors used                                                 */
 /*============================================================================*/
@@ -258,6 +259,9 @@
 #define TSLPRM_USE_6CH_LIN_H  (0)
 #define TSLPRM_USE_6CH_ROT_M  (0)
 
+/*============================================================================*/
+/* Linear/Rotary sensors position                                             */
+/*============================================================================*/
 #define TSLPRM_LINROT_RESOLUTION (4)
 #define TSLPRM_LINROT_DIR_CHG_POS (10)
 #define TSLPRM_LINROT_DIR_CHG_DEB (1)
@@ -273,34 +277,34 @@
   - A Low value will result in a higher sensitivity during the Proximity detection but with less noise filtering.
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
-#define TSLPRM_DEBOUNCE_PROX (2)
 //#define TSLPRM_DEBOUNCE_PROX (31)
+#define TSLPRM_DEBOUNCE_PROX            (2)
 
 /** Detect state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the detection but with less noise filtering.
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
-#define TSLPRM_DEBOUNCE_DETECT (2)
 //#define TSLPRM_DEBOUNCE_DETECT (31)
+#define TSLPRM_DEBOUNCE_DETECT          (5)
 
 /** Release state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the end-detection but with less noise filtering.
   - A High value will result in a lower sensitivity during the end-detection but with more noise filtering.
 */
-#define TSLPRM_DEBOUNCE_RELEASE (2)
 //#define TSLPRM_DEBOUNCE_RELEASE (31)
+#define TSLPRM_DEBOUNCE_RELEASE         (5)
 
 /** Re-calibration state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the recalibration but with less noise filtering.
   - A High value will result in a lower sensitivity during the recalibration but with more noise filtering.
 */
-#define TSLPRM_DEBOUNCE_CALIB (3)
+#define TSLPRM_DEBOUNCE_CALIB           (10)
 
 /** Error state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity to enter in error state.
   - A High value will result in a lower sensitivity to enter in error state.
 */
-#define TSLPRM_DEBOUNCE_ERROR (3)
+#define TSLPRM_DEBOUNCE_ERROR           (10)
 
 /** @} Common_Parameters_Debounce */
 
@@ -314,14 +318,14 @@
 /** Environment Change System Slow K factor (range=0..255)
   - The higher value is K, the faster is the response time.
 */
-#define TSLPRM_ECS_K_SLOW (10)
-//#define TSLPRM_ECS_K_SLOW (100)
+//#define TSLPRM_ECS_K_SLOW (10)
+#define TSLPRM_ECS_K_SLOW (100)
 
 /** Environment Change System Fast K factor (range=0..255)
   - The higher value is K, the faster is the response time.
 */
-#define TSLPRM_ECS_K_FAST (20)
-//#define TSLPRM_ECS_K_FAST (200)
+//#define TSLPRM_ECS_K_FAST (20)
+#define TSLPRM_ECS_K_FAST (200)
 
 /** Environment Change System delay in msec (range=0..5000)
   - The ECS will be started after this delay and when all sensors are in Release state.
@@ -364,8 +368,8 @@
 
 /** Detection Exclusion System (0=No, 1=Yes)
 */
-#define TSLPRM_USE_DXS (0)
-//#define TSLPRM_USE_DXS (1)
+//#define TSLPRM_USE_DXS                  (0)
+#define TSLPRM_USE_DXS                  (1)
 
 
 /** @} Common_Parameters_DXS */
@@ -380,8 +384,8 @@
 /** Timing tick frequency in Hz (range=125, 250, 500, 1000, 2000)
   - Result to a timing interrupt respectively every 8ms, 4ms, 2ms, 1ms, 0.5ms
 */
-#define TSLPRM_TICK_FREQ (1000)
-//#define TSLPRM_TICK_FREQ (125)
+//#define TSLPRM_TICK_FREQ (1000)
+#define TSLPRM_TICK_FREQ                (2000)
 
 /** Delay for discharging Cx and Cs capacitors (range=0..65535)
     - The value corresponds to the Softdelay function parameter.
@@ -389,7 +393,8 @@
     - 1000 gives around 125 microseconds delay whatever HCLK
     - 2000 gives around 250 microseconds delay whatever HCLK
 */
-#define TSLPRM_DELAY_DISCHARGE_ALL (1000)
+#define TSLPRM_DELAY_DISCHARGE_ALL      (1000)
+//#define TSLPRM_DELAY_DISCHARGE_ALL      (2000)
 
 /** IOs default mode when no on-going acquisition (range=0..1)
     - 0: Output push-pull low
@@ -397,7 +402,7 @@
 @note To ensure a correct operation in noisy environment, this parameter should
 be configured to output push-pull low (excepted for Linear sensors).
 */
-#define TSLPRM_IODEF 0
+#define TSLPRM_IODEF                    1
 
 /** @} Common_Parameters_Misc */
 

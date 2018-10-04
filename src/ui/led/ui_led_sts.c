@@ -59,10 +59,10 @@ void    ui_led_sts_startup(     const   uint32_t        delay_msec )
         ui_led_sts_set( UI_LED_TS103 | UI_LED_TS104 );
         HAL_Delay( delay_msec );
 
-        ui_led_sts_set( UI_LED_TS100 | UI_LED_TS105 );
+        ui_led_sts_set( UI_LED_TS100 | UI_LED_TS102 );
         HAL_Delay( delay_msec );
 
-        ui_led_sts_set( UI_LED_TS102 | UI_LED_TS107 );
+        ui_led_sts_set( UI_LED_TS105 | UI_LED_TS107 );
         HAL_Delay( delay_msec );
 
         ui_led_sts_set( 0x00 );

@@ -134,7 +134,8 @@ int main(void)
         ui_led_pwr_init();
         ui_led_pwr_set( true );
         ui_led_sts_init();
-        ui_led_sts_startup( 400 );
+        //ui_led_sts_startup( 400 );
+        ui_led_sts_startup( 250 );
 
 
         MX_GPIO_Init();
