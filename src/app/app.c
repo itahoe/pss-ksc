@@ -115,64 +115,62 @@ int main( void )
                         MyTKeysB[ UI_KEY_IDX_TS100 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x01;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x01;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS101 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS101 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x02;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x02;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS102 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS102 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x04;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x04;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS103 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS103 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x08;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x08;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS104 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS104 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x10;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x10;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS105 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS105 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x20;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x20;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS106 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS106 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x40;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x40;
                 }
 
                 if(     MyTKeysB[ UI_KEY_IDX_TS107 ].p_Data->Change &&
                         MyTKeysB[ UI_KEY_IDX_TS107 ].p_Data->StateId == TSL_STATEID_DETECT )
                 {
                         ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
-                        mask    =   0x80;
-                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                        mask    |=  0x80;
+                }
+
+                if( mask )
+                {
+                        HAL_UART_Transmit( &huart1, &mask, 1, 1 );
+                        mask    =   0;
                 }
 
                 //HAL_Delay( 1 );
