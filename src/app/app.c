@@ -1,29 +1,33 @@
+/**
+  * @file    app.c
+  * @brief   Application
+  * @author  Igor T. <research.tahoe@gmail.com>
+  */
 
 
-#include <stdbool.h>
 #include "app.h"
 #include "bsp.h"
-//#include "stm32f0xx_hal.h"
-#include "touchsensing.h"
 #include "app_trace.h"
 #include "ui_led.h"
+#include "ui_key.h"
 
 
+#define UI_KEY_IDX_TS100                3
+#define UI_KEY_IDX_TS101                6
+#define UI_KEY_IDX_TS102                5
+#define UI_KEY_IDX_TS103                1
+#define UI_KEY_IDX_TS104                2
+#define UI_KEY_IDX_TS105                0
+#define UI_KEY_IDX_TS106                4
+#define UI_KEY_IDX_TS107                7
 
-/* Private variables ---------------------------------------------------------*/
-                TSC_HandleTypeDef       htsc;
+
+                app_t                   app;
                 UART_HandleTypeDef      huart1;
 extern  CONST   TSL_TouchKeyB_T         MyTKeysB[];
 
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_TSC_Init(void);
 static void MX_USART1_UART_Init(void);
 
 
@@ -33,38 +37,10 @@ static void MX_USART1_UART_Init(void);
   * @retval None
   */
 static
-void Process_Sensors(tsl_user_status_t status)
+void    Process_Sensors(                tsl_user_status_t       status )
 {
         uint8_t         mask    = 0;
 
-
-        /* LED1 is ON when TS1 on board is touched */
-/*
-        if (MyTKeysB[0].p_Data->StateId == TSL_STATEID_DETECT)
-        {
-                //BSP_LED_On(LED1);
-                APP_TRACE( "key0: ON\n" );
-        }
-        else
-        {
-                //BSP_LED_Off(LED1);
-                APP_TRACE( "key0: OFF\n" );
-        }
-*/
-
-        /* LED2 is ON when TS2 on board is touched */
-/*
-        if (MyTKeysB[1].p_Data->StateId == TSL_STATEID_DETECT)
-        {
-                //BSP_LED_On(LED2);
-                APP_TRACE( "key1: ON\n" );
-        }
-        else
-        {
-                //BSP_LED_Off(LED2);
-                APP_TRACE( "key1: OFF\n" );
-        }
-*/
 
         /* ECS information */
         switch( status )
@@ -75,6 +51,7 @@ void Process_Sensors(tsl_user_status_t status)
                         break;
 
                 case TSL_USER_STATUS_OK_ECS_ON:
+                        //ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
                         //BSP_LED_Toggle(LED4);
                         //APP_TRACE( "BSP_LED_Toggle( LED4 )\n" );
                         break;
@@ -83,35 +60,17 @@ void Process_Sensors(tsl_user_status_t status)
                         break;
         }
 
-/*
-        APP_TRACE( "%c", (MyTKeysB[0].p_Data->StateId == TSL_STATEID_DETECT) ? 'C' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[1].p_Data->StateId == TSL_STATEID_DETECT) ? '<' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[2].p_Data->StateId == TSL_STATEID_DETECT) ? '>' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[3].p_Data->StateId == TSL_STATEID_DETECT) ? 'K' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[4].p_Data->StateId == TSL_STATEID_DETECT) ? 'v' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[5].p_Data->StateId == TSL_STATEID_DETECT) ? '#' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[6].p_Data->StateId == TSL_STATEID_DETECT) ? '^' : '.' );
-        APP_TRACE( "%c", (MyTKeysB[7].p_Data->StateId == TSL_STATEID_DETECT) ? 'M' : '.' );
-        APP_TRACE( "\n" );
-*/
 
-        mask    |=   MyTKeysB[0].p_Data->StateId == TSL_STATEID_DETECT ? 0x01 : 0;
-        mask    |=   MyTKeysB[1].p_Data->StateId == TSL_STATEID_DETECT ? 0x02 : 0;
-        mask    |=   MyTKeysB[2].p_Data->StateId == TSL_STATEID_DETECT ? 0x04 : 0;
-        mask    |=   MyTKeysB[3].p_Data->StateId == TSL_STATEID_DETECT ? 0x08 : 0;
-        mask    |=   MyTKeysB[4].p_Data->StateId == TSL_STATEID_DETECT ? 0x10 : 0;
-        mask    |=   MyTKeysB[5].p_Data->StateId == TSL_STATEID_DETECT ? 0x20 : 0;
-        mask    |=   MyTKeysB[6].p_Data->StateId == TSL_STATEID_DETECT ? 0x40 : 0;
-        mask    |=   MyTKeysB[7].p_Data->StateId == TSL_STATEID_DETECT ? 0x80 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS100 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS100 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS101 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS101 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS102 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS102 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS103 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS103 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS104 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS104 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS105 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS105 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS106 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS106 : 0;
+        mask    |=   MyTKeysB[ UI_KEY_IDX_TS107 ].p_Data->StateId == TSL_STATEID_DETECT ? UI_LED_TS107 : 0;
 
-        ui_led_sts_set( ~mask );
-
-        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
-/*
-        led_set( false );
-        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
-        led_set( true );
-*/
+        ui_led_ts_set( ~mask );
 }
 
 
@@ -120,42 +79,103 @@ void Process_Sensors(tsl_user_status_t status)
   *
   * @retval None
   */
-int main(void)
+int main( void )
 {
         tsl_user_status_t       tsl_status;
+        uint8_t                 mask;
 
 
         HAL_Init();
         SystemClock_Config();
 
-        //led_init();
-        //led_set( true );
-
         ui_led_pwr_init();
         ui_led_pwr_set( true );
-        ui_led_sts_init();
-        //ui_led_sts_startup( 400 );
-        ui_led_sts_startup( 250 );
+        ui_led_ts_init();
+        ui_led_ts_startup( 250 );
 
 
         MX_GPIO_Init();
 
-        MX_TSC_Init();
+        //MX_TSC_Init();
+        ui_key_ts_init();
+        //MX_TOUCHSENSING_Init();
+
         MX_USART1_UART_Init();
-        MX_TOUCHSENSING_Init();
 
         while( 1 )
         {
-                //led_set( false );
                 tsl_status = tsl_user_Exec();   // Execute STMTouch Driver state machine
-                //led_set( true );
 
                 if( tsl_status != TSL_USER_STATUS_BUSY )
                 {
                         Process_Sensors(tsl_status);
                 }
 
-                HAL_Delay( 1 );
+                if(     MyTKeysB[ UI_KEY_IDX_TS100 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS100 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x01;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS101 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS101 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x02;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS102 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS102 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x04;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS103 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS103 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x08;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS104 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS104 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x10;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS105 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS105 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x20;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS106 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS106 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x40;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                if(     MyTKeysB[ UI_KEY_IDX_TS107 ].p_Data->Change &&
+                        MyTKeysB[ UI_KEY_IDX_TS107 ].p_Data->StateId == TSL_STATEID_DETECT )
+                {
+                        ui_led_pwr_flash( UI_LED_FLSH_SHRT_TCKS );
+                        mask    =   0x80;
+                        HAL_UART_Transmit( &huart1, &mask, 1, 100 );
+                }
+
+                //HAL_Delay( 1 );
         }
 }
 
@@ -214,40 +234,38 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/* TSC init function */
-static void MX_TSC_Init(void)
+/*
+static
+void MX_TSC_Init(void)
 {
-
-    /**Configure the TSC peripheral
-    */
-  htsc.Instance = TSC;
-  htsc.Init.CTPulseHighLength = TSC_CTPH_2CYCLES;
-  htsc.Init.CTPulseLowLength = TSC_CTPL_2CYCLES;
-  htsc.Init.SpreadSpectrum = DISABLE;
-  htsc.Init.SpreadSpectrumDeviation = 1;
-  htsc.Init.SpreadSpectrumPrescaler = TSC_SS_PRESC_DIV1;
-  htsc.Init.PulseGeneratorPrescaler = TSC_PG_PRESC_DIV4;
-  htsc.Init.MaxCountValue = TSC_MCV_8191;
-  htsc.Init.IODefaultMode = TSC_IODEF_OUT_PP_LOW;
-  htsc.Init.SynchroPinPolarity = TSC_SYNC_POLARITY_FALLING;
-  htsc.Init.AcquisitionMode = TSC_ACQ_MODE_NORMAL;
-  htsc.Init.MaxCountInterrupt = DISABLE;
-  htsc.Init.ChannelIOs = TSC_GROUP1_IO3|TSC_GROUP1_IO4|TSC_GROUP2_IO2|TSC_GROUP2_IO3
-                    |TSC_GROUP2_IO4|TSC_GROUP4_IO2|TSC_GROUP4_IO3|TSC_GROUP4_IO4;
-  htsc.Init.ShieldIOs = TSC_GROUP5_IO1;
-  htsc.Init.SamplingIOs = TSC_GROUP1_IO1|TSC_GROUP2_IO1|TSC_GROUP4_IO1|TSC_GROUP5_IO2;
-  if (HAL_TSC_Init(&htsc) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
+        htsc.Instance = TSC;
+        htsc.Init.CTPulseHighLength = TSC_CTPH_2CYCLES;
+        htsc.Init.CTPulseLowLength = TSC_CTPL_2CYCLES;
+        htsc.Init.SpreadSpectrum = DISABLE;
+        htsc.Init.SpreadSpectrumDeviation = 1;
+        htsc.Init.SpreadSpectrumPrescaler = TSC_SS_PRESC_DIV1;
+        htsc.Init.PulseGeneratorPrescaler = TSC_PG_PRESC_DIV4;
+        htsc.Init.MaxCountValue = TSC_MCV_8191;
+        htsc.Init.IODefaultMode = TSC_IODEF_OUT_PP_LOW;
+        htsc.Init.SynchroPinPolarity = TSC_SYNC_POLARITY_FALLING;
+        htsc.Init.AcquisitionMode = TSC_ACQ_MODE_NORMAL;
+        htsc.Init.MaxCountInterrupt = DISABLE;
+        htsc.Init.ChannelIOs = TSC_GROUP1_IO3|TSC_GROUP1_IO4|TSC_GROUP2_IO2|TSC_GROUP2_IO3|TSC_GROUP2_IO4|TSC_GROUP4_IO2|TSC_GROUP4_IO3|TSC_GROUP4_IO4;
+        htsc.Init.ShieldIOs = TSC_GROUP5_IO1;
+        htsc.Init.SamplingIOs = TSC_GROUP1_IO1|TSC_GROUP2_IO1|TSC_GROUP4_IO1|TSC_GROUP5_IO2;
+        if( HAL_TSC_Init( &htsc ) != HAL_OK )
+        {
+                _Error_Handler( __FILE__, __LINE__ );
+        }
 }
+*/
 
-/* USART1 init function */
-static void MX_USART1_UART_Init(void)
+static
+void MX_USART1_UART_Init(void)
 {
         huart1.Instance                         = USART1;
-        huart1.Init.BaudRate                    = 9600;
+        //huart1.Init.BaudRate                    = 9600;
+        huart1.Init.BaudRate                    = 115200;
         huart1.Init.WordLength                  = UART_WORDLENGTH_8B;
         huart1.Init.StopBits                    = UART_STOPBITS_1;
         huart1.Init.Parity                      = UART_PARITY_NONE;

@@ -19,9 +19,9 @@ bool    bsp_led_pwr_get( void );
 void	bsp_led_pwr_set(        const   bool                    val );
 
 
-void    bsp_led_sts_init( void );
-uint8_t bsp_led_sts_get( void );
-void	bsp_led_sts_set(        const   uint8_t                 val );
+void    bsp_led_ts_init( void );
+uint8_t bsp_led_ts_get( void );
+void	bsp_led_ts_set(         const   uint8_t                 val );
 
 
 #endif	//BSP_LED_H

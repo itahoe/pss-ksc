@@ -15,10 +15,11 @@
 //#include "cfg_gnss.h"
 //#include "cfg_log.h"
 //#include "cfg_nmea.h"
-//#include "cfg_ui.h"
 //#include "cfg_usb.h"
 //#include "cfg_comm.h"
 //#include "config_log.h"
+
+#include "cfg_ui.h"
 
 
 #endif	//CONFIG_H
