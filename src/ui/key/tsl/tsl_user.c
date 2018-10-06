@@ -352,6 +352,30 @@ void tsl_user_SetThresholds(void)
                 MyTKeys_Param[0].DetectInTh -= 10;
                 MyTKeys_Param[0].DetectOutTh -= 10;
         */
+
+        //TS101
+        MyTKeys_Param[ 6 ].DetectInTh   -= 1;
+        MyTKeys_Param[ 6 ].DetectOutTh  -= 1;
+
+        //TS102
+        MyTKeys_Param[ 5 ].DetectInTh   -= 5;
+        MyTKeys_Param[ 5 ].DetectOutTh  -= 5;
+
+        //TS103
+        MyTKeys_Param[ 1 ].DetectInTh   += 4;
+        MyTKeys_Param[ 1 ].DetectOutTh  += 2;
+
+        //TS105
+        MyTKeys_Param[ 0 ].DetectInTh   += 2;
+        MyTKeys_Param[ 0 ].DetectOutTh  += 2;
+
+        //TS106
+        MyTKeys_Param[ 4 ].DetectInTh   += 5;
+        MyTKeys_Param[ 4 ].DetectOutTh  += 5;
+
+        //TS107
+        MyTKeys_Param[ 7 ].DetectInTh   -= 2;
+        MyTKeys_Param[ 7 ].DetectOutTh  -= 2;
 }
 
 

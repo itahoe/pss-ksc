@@ -170,8 +170,8 @@
   - This is useful if a noise filter is used.
   - Write 0 to disable the delay.
 */
-#define TSLPRM_CALIB_DELAY      (0)
-//#define TSLPRM_CALIB_DELAY              (10)
+//#define TSLPRM_CALIB_DELAY      (0)
+#define TSLPRM_CALIB_DELAY              (10)
 
 /** @} Common_Parameters_Calibration */
 
@@ -185,35 +185,37 @@
 /** TouchKeys Proximity state input threshold (range=0..255)
   - Enter Proximity state if delta is above
 */
-//#define TSLPRM_TKEY_PROX_IN_TH          (10)
-#define TSLPRM_TKEY_PROX_IN_TH          (6)
+//#define TSLPRM_TKEY_PROX_IN_TH          (6)
+#define TSLPRM_TKEY_PROX_IN_TH          (8)
 
 /** TouchKeys Proximity state output threshold (range=0..255)
   - Exit Proximity state if delta is below
 */
-//#define TSLPRM_TKEY_PROX_OUT_TH (5)
-#define TSLPRM_TKEY_PROX_OUT_TH         (5)
+//#define TSLPRM_TKEY_PROX_OUT_TH         (5)
+#define TSLPRM_TKEY_PROX_OUT_TH         (6)
 
 /** TouchKeys Detect state input threshold (range=0..255)
   - Enter Detect state if delta is above
 */
 //#define TSLPRM_TKEY_DETECT_IN_TH (120)
-#define TSLPRM_TKEY_DETECT_IN_TH        (8)
+//#define TSLPRM_TKEY_DETECT_IN_TH        (8)
+#define TSLPRM_TKEY_DETECT_IN_TH        (10)
 
 /** TouchKeys Detect state output threshold (range=0..255)
   - Exit Detect state if delta is below
 */
 //#define TSLPRM_TKEY_DETECT_OUT_TH (110)
-#define TSLPRM_TKEY_DETECT_OUT_TH       (7)
+//#define TSLPRM_TKEY_DETECT_OUT_TH       (7)
+#define TSLPRM_TKEY_DETECT_OUT_TH       (9)
 
 /** TouchKeys re-Calibration threshold (range=0..255)
   - @warning The value is inverted in the sensor state machine
   - Enter Calibration state if delta is below
 */
 //#define TSLPRM_TKEY_CALIB_TH (120)
-#define TSLPRM_TKEY_CALIB_TH            (50)
+//#define TSLPRM_TKEY_CALIB_TH            (50)
 //#define TSLPRM_TKEY_CALIB_TH            (250)
-//#define TSLPRM_TKEY_CALIB_TH            (6)
+#define TSLPRM_TKEY_CALIB_TH            (20)
 
 /** TouchKey, Linear and Rotary sensors thresholds coefficient (range=0..4)
     This multiplier coefficient is applied on Detect and Re-Calibration thresholds only.
@@ -335,8 +337,8 @@
 /** Environment Change System delay in msec (range=0..5000)
   - The ECS will be started after this delay and when all sensors are in Release state.
 */
-#define TSLPRM_ECS_DELAY (500)
-//#define TSLPRM_ECS_DELAY (2000)
+//#define TSLPRM_ECS_DELAY (500)
+#define TSLPRM_ECS_DELAY (2000)
 
 /** @} Common_Parameters_ECS */
 
