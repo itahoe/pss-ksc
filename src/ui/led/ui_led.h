@@ -16,10 +16,13 @@
 #include	"bsp_led.h"
 
 
-#define	UI_LED_FLSH_SHRT_TCKS   ( ((uint32_t) CFG_UI_LED_FLSH_SHRT_mSEC * UI_SYSTICK_HZ) / 1000 )
-#define	UI_LED_FLSH_LONG_TCKS   ( ((uint32_t) CFG_UI_LED_FLSH_LONG_mSEC * UI_SYSTICK_HZ) / 1000 )
+//#define	UI_LED_FLSH_SHRT_TCKS   ( ((uint32_t) CFG_UI_LED_FLSH_SHRT_mSEC * UI_SYSTICK_HZ) / 1000 )
+//#define	UI_LED_FLSH_LONG_TCKS   ( ((uint32_t) CFG_UI_LED_FLSH_LONG_mSEC * UI_SYSTICK_HZ) / 1000 )
 
+#define	UI_LED_FLSH_SHRT_TCKS   ( ((size_t) CFG_UI_LED_FLSH_SHRT_mSEC * BSP_SYSTICK_HZ) / 1000 )
+#define	UI_LED_FLSH_LONG_TCKS   ( ((size_t) CFG_UI_LED_FLSH_LONG_mSEC * BSP_SYSTICK_HZ) / 1000 )
 
+/*
 #define UI_LED_TS100            0x08
 #define UI_LED_TS101            0x40
 #define UI_LED_TS102            0x80
@@ -28,6 +31,15 @@
 #define UI_LED_TS105            0x01
 #define UI_LED_TS106            0x02
 #define UI_LED_TS107            0x10
+*/
+#define UI_LED_TS100            0x08
+#define UI_LED_TS101            0x04
+#define UI_LED_TS102            0x01
+#define UI_LED_TS103            0x80
+#define UI_LED_TS104            0x10
+#define UI_LED_TS105            0x20
+#define UI_LED_TS106            0x40
+#define UI_LED_TS107            0x02
 
 
 typedef    void ( * ui_led_init_t )( void );

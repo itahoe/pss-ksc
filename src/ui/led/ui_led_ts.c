@@ -29,6 +29,25 @@ void ui_led_ts_set(            const   uint8_t                 word )
 void    ui_led_ts_startup(     const   uint32_t        delay_msec )
 {
 
+        ui_led_ts_set( UI_LED_TS100 );
+        HAL_Delay( delay_msec );
+
+        ui_led_ts_set( UI_LED_TS101 );
+        HAL_Delay( delay_msec );
+
+        ui_led_ts_set( UI_LED_TS102 );
+        HAL_Delay( delay_msec );
+
+        ui_led_ts_set( UI_LED_TS103 );
+        HAL_Delay( delay_msec );
+
+        ui_led_ts_set( UI_LED_TS104 );
+        HAL_Delay( delay_msec );
+
+        ui_led_ts_set( UI_LED_TS105 );
+        HAL_Delay( delay_msec );
+
+/*
         ui_led_ts_set( UI_LED_TS101 | UI_LED_TS106 );
         HAL_Delay( delay_msec );
 
@@ -43,6 +62,6 @@ void    ui_led_ts_startup(     const   uint32_t        delay_msec )
 
         ui_led_ts_set( 0x00 );
         HAL_Delay( delay_msec );
-
+*/
         ui_led_ts_set( 0xFF );
 }

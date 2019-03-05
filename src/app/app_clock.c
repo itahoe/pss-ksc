@@ -16,41 +16,39 @@ void    app_clock_config( void )
         RCC_ClkInitTypeDef              clk;
         RCC_PeriphCLKInitTypeDef        pck;
 
-        //Initializes the CPU, AHB and APB busses clocks
-        osc.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-        osc.HSIState = RCC_HSI_ON;
-        osc.HSICalibrationValue = 16;
-        osc.PLL.PLLState = RCC_PLL_NONE;
 
+        osc.OscillatorType              = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI14 | RCC_OSCILLATORTYPE_HSI48;
+        osc.HSIState                    = RCC_HSI_ON;
+        osc.HSI48State                  = RCC_HSI48_ON;
+        osc.HSI14State                  = RCC_HSI14_ON;
+        osc.HSICalibrationValue         = 16;
+        osc.HSI14CalibrationValue       = 16;
+        osc.PLL.PLLState                = RCC_PLL_ON;
+        osc.PLL.PLLSource               = RCC_PLLSOURCE_HSI;
+        osc.PLL.PLLMUL                  = RCC_PLL_MUL6;
+        osc.PLL.PREDIV                  = RCC_PREDIV_DIV1;
         if( HAL_RCC_OscConfig( &osc ) != HAL_OK )
         {
-                _Error_Handler(__FILE__, __LINE__);
+                app_error( __FILE__, __LINE__ );
         }
 
-        //Initializes the CPU, AHB and APB busses clocks
-        clk.ClockType     = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1;
-        clk.SYSCLKSource  = RCC_SYSCLKSOURCE_HSI;
-        clk.AHBCLKDivider = RCC_SYSCLK_DIV1;
-        clk.APB1CLKDivider = RCC_HCLK_DIV1;
-
-        if( HAL_RCC_ClockConfig( &clk, FLASH_LATENCY_0 ) != HAL_OK )
+        clk.ClockType                   = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1;
+        clk.SYSCLKSource                = RCC_SYSCLKSOURCE_PLLCLK;
+        clk.AHBCLKDivider               = RCC_SYSCLK_DIV1;
+        clk.APB1CLKDivider              = RCC_HCLK_DIV1;
+        if( HAL_RCC_ClockConfig( &clk, FLASH_LATENCY_1 ) != HAL_OK )
         {
-                _Error_Handler(__FILE__, __LINE__);
+                app_error( __FILE__, __LINE__ );
         }
 
-        pck.PeriphClockSelection = RCC_PERIPHCLK_USART1;
-        pck.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+        pck.PeriphClockSelection        = RCC_PERIPHCLK_USB;
+        pck.UsbClockSelection           = RCC_USBCLKSOURCE_HSI48;
         if( HAL_RCCEx_PeriphCLKConfig( &pck ) != HAL_OK )
         {
-                _Error_Handler(__FILE__, __LINE__);
+                app_error( __FILE__, __LINE__ );
         }
 
-        //Configure the Systick interrupt time
         HAL_SYSTICK_Config( HAL_RCC_GetHCLKFreq()/1000 );
-
-        //Configure the Systick
         HAL_SYSTICK_CLKSourceConfig( SYSTICK_CLKSOURCE_HCLK );
-
-        //SysTick_IRQn interrupt configuration
         HAL_NVIC_SetPriority( SysTick_IRQn, 0, 0 );
 }

@@ -54,6 +54,7 @@
 /*============================================================================*/
 
 /* Source and Configuration (ROM) */
+
 CONST TSL_ChannelSrc_T MyChannels_Src[TSLPRM_TOTAL_CHANNELS] =
 {
     { CHANNEL_0_SRC, CHANNEL_0_IO_MSK, CHANNEL_0_GRP_MSK },
@@ -65,6 +66,7 @@ CONST TSL_ChannelSrc_T MyChannels_Src[TSLPRM_TOTAL_CHANNELS] =
     { CHANNEL_6_SRC, CHANNEL_6_IO_MSK, CHANNEL_6_GRP_MSK },
     { CHANNEL_7_SRC, CHANNEL_7_IO_MSK, CHANNEL_7_GRP_MSK },
 };
+
 
 /* Destination (ROM) */
 CONST TSL_ChannelDest_T MyChannels_Dest[TSLPRM_TOTAL_CHANNELS] =
@@ -352,7 +354,7 @@ void tsl_user_SetThresholds(void)
                 MyTKeys_Param[0].DetectInTh -= 10;
                 MyTKeys_Param[0].DetectOutTh -= 10;
         */
-
+/*
         //TS101
         MyTKeys_Param[ 6 ].DetectInTh   -= 1;
         MyTKeys_Param[ 6 ].DetectOutTh  -= 1;
@@ -376,6 +378,7 @@ void tsl_user_SetThresholds(void)
         //TS107
         MyTKeys_Param[ 7 ].DetectInTh   -= 2;
         MyTKeys_Param[ 7 ].DetectOutTh  -= 2;
+*/
 }
 
 

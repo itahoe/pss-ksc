@@ -25,39 +25,73 @@ void	ui_key_init( void )
 
 
 /**
- * @brief User Interface Key hook.
+ * @brief       UI Key hook, Non-Typematic version
  */
-bool	ui_key_hook(                    ui_key_t *      p,
-                                const   bool            forced )
+bool	ui_key_hook(                    ui_key_t *              p,
+                                const   bool                    forced )
 {
-	bool    resp    =    false;
-	//bool    forced  =    bsp_key_get();
-	//bool    forced  =    false;
+	bool    resp    = false;
 
-	if( forced == true )
+
+        if( forced )
 	{
-		p->tick++;
+                p->tick++;
 
-		if( p->tick == UI_KEY_REPEAT_TCKS )
-		{
-			p->tick         =    UI_KEY_LONG_TCKS;
-			p->status       =    UI_KEY_STS_REPEAT;
-			resp            =    true;
-		}
+                if( p->tick == UI_KEY_LONG_TCKS )
+                {
+                        p->sts  =    UI_KEY_STS_HOLD;
+                        resp    =    true;
+                }
 	}
-	else
+	else if( p->tick > 0 )
 	{
-		if( p->tick > 0 )
-		{
-			p->status       =    p->tick < UI_KEY_DEBOUNCE_TCKS ? UI_KEY_STS_NONE :
-			                         p->tick < UI_KEY_SHRT_TCKS     ? UI_KEY_STS_SHORT :
-			                             p->tick < UI_KEY_LONG_TCKS     ? UI_KEY_STS_LONG : UI_KEY_STS_RELEASE;
-			p->tick		=	0;
+                p->sts  =   p->tick < UI_KEY_DEBOUNCE_TCKS ? UI_KEY_STS_IDLE:
+                                p->tick < UI_KEY_LONG_TCKS     ? UI_KEY_STS_PUSH : UI_KEY_STS_RELEASE;
+                p->tick =   0;
 
-			if( p->status > UI_KEY_STS_NONE )
-			{
-				resp            =    true;
-			}
+		if( p->sts > UI_KEY_STS_IDLE )
+                {
+                        resp            =    true;
+                }
+	}
+
+	return( resp );
+}
+
+
+/**
+ * @brief       UI Key hook, Typematic version
+ */
+bool	ui_key_hook_typematic(                  ui_key_t *      p,
+                                        const   bool            forced )
+{
+	bool    resp    = false;
+
+
+        if( forced )
+	{
+                p->tick++;
+
+                if(             p->tick == UI_KEY_DEBOUNCE_TCKS )
+                {
+                        p->sts  =    UI_KEY_STS_PUSH;
+                        resp    =    true;
+                }
+                else if(        p->tick > (UI_KEY_TYPEMATIC_DELAY_TCKS + UI_KEY_TYPEMATIC_RATE_TCKS) )
+                {
+                        p->tick =    UI_KEY_TYPEMATIC_DELAY_TCKS;
+                        p->sts  =    UI_KEY_STS_HOLD;
+                        resp    =    true;
+                }
+	}
+	else if( p->tick > 0 )
+        {
+                p->sts  =   p->tick < UI_KEY_DEBOUNCE_TCKS ? UI_KEY_STS_IDLE : UI_KEY_STS_RELEASE;
+                p->tick =   0;
+
+                if( p->sts > UI_KEY_STS_IDLE )
+		{
+                        resp            =    true;
 		}
 	}
 

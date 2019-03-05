@@ -147,8 +147,8 @@
   - The acquisition will be in error if the measure is above this value.
 */
 //#define TSLPRM_ACQ_MAX (8191)
-#define TSLPRM_ACQ_MAX (16383)
-//#define TSLPRM_ACQ_MAX (2047)
+//#define TSLPRM_ACQ_MAX (16383)
+#define TSLPRM_ACQ_MAX (2047)
 
 /** @} Common_Parameters_Acquisition_Limits */
 
@@ -163,8 +163,8 @@
   - Low value = faster calibration but less precision.
   - High value = slower calibration but more precision.
 */
-#define TSLPRM_CALIB_SAMPLES            (4)
-//#define TSLPRM_CALIB_SAMPLES            (16)
+//#define TSLPRM_CALIB_SAMPLES            (4)
+#define TSLPRM_CALIB_SAMPLES            (16)
 
 /** Delay in measurement samples before starting the calibration (range=0..40)
   - This is useful if a noise filter is used.
@@ -186,27 +186,27 @@
   - Enter Proximity state if delta is above
 */
 //#define TSLPRM_TKEY_PROX_IN_TH          (6)
-#define TSLPRM_TKEY_PROX_IN_TH          (8)
+#define TSLPRM_TKEY_PROX_IN_TH          (16)
 
 /** TouchKeys Proximity state output threshold (range=0..255)
   - Exit Proximity state if delta is below
 */
 //#define TSLPRM_TKEY_PROX_OUT_TH         (5)
-#define TSLPRM_TKEY_PROX_OUT_TH         (6)
+#define TSLPRM_TKEY_PROX_OUT_TH         (15)
 
 /** TouchKeys Detect state input threshold (range=0..255)
   - Enter Detect state if delta is above
 */
 //#define TSLPRM_TKEY_DETECT_IN_TH (120)
 //#define TSLPRM_TKEY_DETECT_IN_TH        (8)
-#define TSLPRM_TKEY_DETECT_IN_TH        (10)
+#define TSLPRM_TKEY_DETECT_IN_TH        (32)
 
 /** TouchKeys Detect state output threshold (range=0..255)
   - Exit Detect state if delta is below
 */
 //#define TSLPRM_TKEY_DETECT_OUT_TH (110)
 //#define TSLPRM_TKEY_DETECT_OUT_TH       (7)
-#define TSLPRM_TKEY_DETECT_OUT_TH       (9)
+#define TSLPRM_TKEY_DETECT_OUT_TH       (31)
 
 /** TouchKeys re-Calibration threshold (range=0..255)
   - @warning The value is inverted in the sensor state machine
@@ -215,7 +215,7 @@
 //#define TSLPRM_TKEY_CALIB_TH (120)
 //#define TSLPRM_TKEY_CALIB_TH            (50)
 //#define TSLPRM_TKEY_CALIB_TH            (250)
-#define TSLPRM_TKEY_CALIB_TH            (20)
+#define TSLPRM_TKEY_CALIB_TH            (16)
 
 /** TouchKey, Linear and Rotary sensors thresholds coefficient (range=0..4)
     This multiplier coefficient is applied on Detect and Re-Calibration thresholds only.
@@ -280,38 +280,31 @@
   - A Low value will result in a higher sensitivity during the Proximity detection but with less noise filtering.
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
-//#define TSLPRM_DEBOUNCE_PROX (31)
-#define TSLPRM_DEBOUNCE_PROX            (20)
+#define TSLPRM_DEBOUNCE_PROX            (31)
 
 /** Detect state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the detection but with less noise filtering.
   - A High value will result in improving the system noise immunity but will increase the system response time.
 */
-//#define TSLPRM_DEBOUNCE_DETECT (31)
-#define TSLPRM_DEBOUNCE_DETECT          (20)
-//#define TSLPRM_DEBOUNCE_DETECT          (4)
+#define TSLPRM_DEBOUNCE_DETECT          (31)
 
 /** Release state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the end-detection but with less noise filtering.
   - A High value will result in a lower sensitivity during the end-detection but with more noise filtering.
 */
-//#define TSLPRM_DEBOUNCE_RELEASE (31)
-#define TSLPRM_DEBOUNCE_RELEASE         (20)
-//#define TSLPRM_DEBOUNCE_RELEASE         (4)
+#define TSLPRM_DEBOUNCE_RELEASE         (31)
 
 /** Re-calibration state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity during the recalibration but with less noise filtering.
   - A High value will result in a lower sensitivity during the recalibration but with more noise filtering.
 */
 #define TSLPRM_DEBOUNCE_CALIB           (32)
-//#define TSLPRM_DEBOUNCE_CALIB           (10)
 
 /** Error state debounce in samples unit (range=0..63)
   - A Low value will result in a higher sensitivity to enter in error state.
   - A High value will result in a lower sensitivity to enter in error state.
 */
 #define TSLPRM_DEBOUNCE_ERROR           (32)
-//#define TSLPRM_DEBOUNCE_ERROR           (10)
 
 /** @} Common_Parameters_Debounce */
 
@@ -337,8 +330,8 @@
 /** Environment Change System delay in msec (range=0..5000)
   - The ECS will be started after this delay and when all sensors are in Release state.
 */
-//#define TSLPRM_ECS_DELAY (500)
-#define TSLPRM_ECS_DELAY (2000)
+#define TSLPRM_ECS_DELAY (500)
+//#define TSLPRM_ECS_DELAY (2000)
 
 /** @} Common_Parameters_ECS */
 
@@ -360,8 +353,8 @@
 @note The DTO can be changed in run-time by the application only if the
       default value is between 1 and 63.
 */
-//#define TSLPRM_DTO (0)
-#define TSLPRM_DTO (1)
+#define TSLPRM_DTO (0)
+//#define TSLPRM_DTO (1)
 //#define TSLPRM_DTO (2)
 
 /** @} Common_Parameters_DTO */
@@ -392,7 +385,8 @@
   - Result to a timing interrupt respectively every 8ms, 4ms, 2ms, 1ms, 0.5ms
 */
 //#define TSLPRM_TICK_FREQ (1000)
-#define TSLPRM_TICK_FREQ                (2000)
+//#define TSLPRM_TICK_FREQ                (2000)
+#define TSLPRM_TICK_FREQ                (500)
 
 /** Delay for discharging Cx and Cs capacitors (range=0..65535)
     - The value corresponds to the Softdelay function parameter.
@@ -400,8 +394,8 @@
     - 1000 gives around 125 microseconds delay whatever HCLK
     - 2000 gives around 250 microseconds delay whatever HCLK
 */
-#define TSLPRM_DELAY_DISCHARGE_ALL      (1000)
-//#define TSLPRM_DELAY_DISCHARGE_ALL      (2000)
+//#define TSLPRM_DELAY_DISCHARGE_ALL      (1000)
+#define TSLPRM_DELAY_DISCHARGE_ALL      (2000)
 
 /** IOs default mode when no on-going acquisition (range=0..1)
     - 0: Output push-pull low
@@ -409,7 +403,7 @@
 @note To ensure a correct operation in noisy environment, this parameter should
 be configured to output push-pull low (excepted for Linear sensors).
 */
-#define TSLPRM_IODEF                    1
+#define TSLPRM_IODEF                    0
 
 /** @} Common_Parameters_Misc */
 
